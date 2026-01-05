@@ -51,20 +51,39 @@ export function getTelegramTheme(): Theme {
 export function setupBackButton(callback: () => void | Promise<void>): () => void {
   try {
     WebApp.BackButton.show();
-    // Wrap callback to handle async properly
-    const wrappedCallback = () => {
-      const result = callback();
-      // If callback is async, handle it
-      if (result instanceof Promise) {
-        result.catch((error) => {
-          console.error('Back button callback error:', error);
-        });
+    
+    let isProcessing = false;
+    
+    // Wrap callback to handle async properly and prevent multiple calls
+    const wrappedCallback = async () => {
+      // Защита от множественных одновременных вызовов
+      if (isProcessing) return;
+      isProcessing = true;
+
+      try {
+        const result = callback();
+        // If callback is async, await it
+        if (result instanceof Promise) {
+          await result;
+        }
+      } catch (error) {
+        console.error('Back button callback error:', error);
+      } finally {
+        // Сбрасываем флаг после небольшой задержки
+        setTimeout(() => {
+          isProcessing = false;
+        }, 300);
       }
     };
+    
+    // onClick автоматически заменяет предыдущий обработчик
     WebApp.BackButton.onClick(wrappedCallback);
+    
     // Return cleanup function
     return () => {
       try {
+        // Устанавливаем пустой обработчик для очистки
+        WebApp.BackButton.onClick(() => {});
         WebApp.BackButton.hide();
       } catch {
         // Ignore errors on cleanup

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { setupBackButton, hapticFeedback, showConfirm } from '../utils/telegram';
@@ -15,28 +15,50 @@ export default function Situation() {
     setShowTip(false);
   }, [step]);
 
+  // Проверка наличия данных для более стабильной зависимости
+  const hasEntryData = useMemo(() => {
+    return currentEntry.location.trim().length > 0 || 
+           currentEntry.witnesses.trim().length > 0 || 
+           currentEntry.circumstances.trim().length > 0 || 
+           currentEntry.trigger.trim().length > 0;
+  }, [currentEntry.location, currentEntry.witnesses, currentEntry.circumstances, currentEntry.trigger]);
+
   useEffect(() => {
+    let isProcessing = false;
+    
     const cleanup = setupBackButton(async () => {
-      if (step > 1) {
-        setStep(step - 1);
-      } else if (currentEntry.location.trim() || currentEntry.witnesses || currentEntry.circumstances.trim() || currentEntry.trigger.trim()) {
-        const confirmed = await showConfirm('Отменить создание записи?');
-        if (confirmed) {
-          resetCurrentEntry();
+      // Защита от множественных одновременных вызовов
+      if (isProcessing) return;
+      isProcessing = true;
+
+      try {
+        if (step > 1) {
+          setStep(step - 1);
+        } else if (hasEntryData) {
+          const confirmed = await showConfirm('Отменить создание записи?');
+          if (confirmed) {
+            resetCurrentEntry();
+            navigate('/');
+          }
+        } else {
           navigate('/');
         }
-      } else {
-        navigate('/');
+      } finally {
+        // Сбрасываем флаг после небольшой задержки, чтобы предотвратить повторные клики
+        setTimeout(() => {
+          isProcessing = false;
+        }, 300);
       }
     });
+    
     return cleanup;
-  }, [navigate, step, currentEntry, resetCurrentEntry]);
+  }, [navigate, step, hasEntryData, resetCurrentEntry]);
 
   const handleBack = async () => {
     hapticFeedback('light');
     if (step > 1) {
       setStep(step - 1);
-    } else if (currentEntry.location.trim() || currentEntry.witnesses || currentEntry.circumstances.trim() || currentEntry.trigger.trim()) {
+    } else if (hasEntryData) {
       const confirmed = await showConfirm('Отменить создание записи?');
       if (confirmed) {
         resetCurrentEntry();

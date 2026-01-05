@@ -146,18 +146,63 @@ export default function EntryView() {
             />
           </div>
 
-          {/* Ситуация */}
+          {/* Место */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Ситуация
+              Место
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
             <textarea
-              value={currentEntry.situation}
-              onChange={(e) => updateCurrentEntry('situation', e.target.value)}
-              className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Опишите факты. Что происходит?.."
+              value={currentEntry.location}
+              onChange={(e) => updateCurrentEntry('location', e.target.value)}
+              className="w-full min-h-[80px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
+              placeholder="Где появились мысли об игре..."
+            />
+          </div>
+
+          {/* Свидетели */}
+          <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
+            <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+              Свидетели
+            </div>
+          </div>
+          <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
+            <textarea
+              value={currentEntry.witnesses}
+              onChange={(e) => updateCurrentEntry('witnesses', e.target.value)}
+              className="w-full min-h-[60px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
+              placeholder="Были ли вы одни или с кем-то..."
+            />
+          </div>
+
+          {/* Обстоятельства */}
+          <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
+            <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+              Обстоятельства
+            </div>
+          </div>
+          <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
+            <textarea
+              value={currentEntry.circumstances}
+              onChange={(e) => updateCurrentEntry('circumstances', e.target.value)}
+              className="w-full min-h-[80px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
+              placeholder="Фон: устал, голоден, поругался..."
+            />
+          </div>
+
+          {/* Триггер */}
+          <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
+            <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+              Триггер
+            </div>
+          </div>
+          <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
+            <textarea
+              value={currentEntry.trigger}
+              onChange={(e) => updateCurrentEntry('trigger', e.target.value)}
+              className="w-full min-h-[80px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
+              placeholder="Что спровоцировало мысли об игре..."
             />
           </div>
 
@@ -172,7 +217,7 @@ export default function EntryView() {
               value={currentEntry.thoughts}
               onChange={(e) => updateCurrentEntry('thoughts', e.target.value)}
               className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="О чем думаете..."
+              placeholder="О чем думаете: желание играть, стыд, самокритика..."
             />
           </div>
 
@@ -187,53 +232,22 @@ export default function EntryView() {
               value={currentEntry.bodyFeelings}
               onChange={(e) => updateCurrentEntry('bodyFeelings', e.target.value)}
               className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Ощущения в теле, тонус мышц..."
+              placeholder="Ощущения в теле, напряжение..."
             />
           </div>
 
-          {/* Части тела */}
-          {currentEntry.bodyZones.length > 0 && (
-            <>
-              <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-                  Части тела
-                </div>
-              </div>
-              <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
-                <div className="text-base text-slate-900 dark:text-white">
-                  {currentEntry.bodyZones.join(', ')}
-                </div>
-              </div>
-            </>
-          )}
-
-          {/* Последствия */}
-          <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Последствия
-            </div>
-          </div>
-          <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
-            <textarea
-              value={currentEntry.consequences}
-              onChange={(e) => updateCurrentEntry('consequences', e.target.value)}
-              className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Потеря времени или препятствие к действию..."
-            />
-          </div>
-
-          {/* Без проблемы */}
+          {/* Действия */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Без проблемы
+              Действия
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4">
             <textarea
-              value={currentEntry.withoutProblem}
-              onChange={(e) => updateCurrentEntry('withoutProblem', e.target.value)}
+              value={currentEntry.actions}
+              onChange={(e) => updateCurrentEntry('actions', e.target.value)}
               className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Что бы вы делали, если бы не эта проблема..."
+              placeholder="Что делаете: отвлекаетесь, запрещаете себе думать..."
             />
           </div>
         </div>

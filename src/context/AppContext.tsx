@@ -69,15 +69,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const saveEntry = useCallback(async () => {
     try {
-      const combinedText = `${currentEntry.situation} ${currentEntry.thoughts} ${currentEntry.consequences}`;
-      
+      const combinedText = `${currentEntry.location} ${currentEntry.thoughts} ${currentEntry.trigger} ${currentEntry.circumstances}`;
+
       const newEntry = await addEntry({
         ...currentEntry,
-        title: generateTitle(currentEntry.situation),
+        title: generateTitle(currentEntry.location),
         emoji: getEmoji(combinedText),
         tags: extractTags(combinedText),
       });
-      
+
       setEntries(prev => [newEntry, ...prev]);
       setCurrentEntry(INITIAL_ENTRY);
       hapticFeedback('success');
@@ -109,12 +109,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const entry = entries.find(e => e.id === id);
     if (entry) {
       setCurrentEntry({
-        situation: entry.situation,
+        location: entry.location,
+        witnesses: entry.witnesses,
+        circumstances: entry.circumstances,
+        trigger: entry.trigger,
         thoughts: entry.thoughts,
         bodyFeelings: entry.bodyFeelings,
-        bodyZones: entry.bodyZones,
-        consequences: entry.consequences,
-        withoutProblem: entry.withoutProblem,
+        actions: entry.actions,
       });
       setEditingEntryId(id);
     }
@@ -126,11 +127,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      const combinedText = `${currentEntry.situation} ${currentEntry.thoughts} ${currentEntry.consequences}`;
+      const combinedText = `${currentEntry.location} ${currentEntry.thoughts} ${currentEntry.trigger} ${currentEntry.circumstances}`;
 
       const updateData: Partial<Entry> = {
         ...currentEntry,
-        title: generateTitle(currentEntry.situation),
+        title: generateTitle(currentEntry.location),
         emoji: getEmoji(combinedText),
         tags: extractTags(combinedText),
       };

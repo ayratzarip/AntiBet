@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { setupBackButton, hapticFeedback, showAlert, disableClosingConfirmation } from '../utils/telegram';
+import { setupBackButton, hapticFeedback } from '../utils/telegram';
 
-export default function WithoutProblem() {
+export default function Actions() {
   const { currentEntry, updateCurrentEntry, saveEntry } = useApp();
   const navigate = useNavigate();
   const [showTip, setShowTip] = useState(false);
@@ -11,30 +11,29 @@ export default function WithoutProblem() {
 
   useEffect(() => {
     const cleanup = setupBackButton(() => {
-      navigate('/consequences');
+      navigate('/body-feelings');
     });
     return cleanup;
   }, [navigate]);
 
   const handleBack = () => {
     hapticFeedback('light');
-    navigate('/consequences');
+    navigate('/body-feelings');
   };
 
-  const handleFinish = async () => {
+  const handleSave = async () => {
     if (isSaving) return;
-    
+
     setIsSaving(true);
     hapticFeedback('medium');
-    
+
     try {
       await saveEntry();
-      disableClosingConfirmation();
-      await showAlert('Запись успешно сохранена!');
+      hapticFeedback('success');
       navigate('/');
     } catch (error) {
-      console.error('Failed to save entry:', error);
-      await showAlert('Не удалось сохранить запись. Попробуйте еще раз.');
+      console.error('Failed to save:', error);
+      hapticFeedback('error');
     } finally {
       setIsSaving(false);
     }
@@ -51,14 +50,13 @@ export default function WithoutProblem() {
           <span className="material-symbols-outlined text-[24px] text-slate-900 dark:text-white">arrow_back</span>
         </button>
         <h2 className="text-lg font-bold leading-tight tracking-tight text-center text-slate-900 dark:text-white">
-          Шаг 5
+          Шаг 7
         </h2>
         <div className="size-10" />
       </header>
 
       {/* Progress Indicator */}
       <div className="flex w-full flex-row items-center justify-center gap-2 py-4 px-4">
-        <div className="h-1.5 flex-1 rounded-full bg-primary/40 dark:bg-border-dark" />
         <div className="h-1.5 flex-1 rounded-full bg-primary/40 dark:bg-border-dark" />
         <div className="h-1.5 flex-1 rounded-full bg-primary/40 dark:bg-border-dark" />
         <div className="h-1.5 flex-1 rounded-full bg-primary/40 dark:bg-border-dark" />
@@ -70,13 +68,13 @@ export default function WithoutProblem() {
         {/* Headline */}
         <div className="pt-2 pb-2">
           <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-            Что бы Вы делали без проблемы?
+            Что вы делаете?
           </h1>
         </div>
 
         {/* Description */}
         <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-          Проблема — это когда вы не делаете то, что хотите. Осознайте, что если бы не проблема, вы бы могли заняться чем-то ценным.
+          Опишите свои действия в ответ на мысли об игре. Как вы пытаетесь справиться с желанием или со стыдом?
         </p>
 
         {/* Text Input Area */}
@@ -86,10 +84,10 @@ export default function WithoutProblem() {
           </label>
           <div className="relative group w-full h-full flex-1">
             <textarea
-              value={currentEntry.withoutProblem}
-              onChange={(e) => updateCurrentEntry('withoutProblem', e.target.value)}
+              value={currentEntry.actions}
+              onChange={(e) => updateCurrentEntry('actions', e.target.value)}
               className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-              placeholder="Я бы чувствовал себя легче, занялся бы..."
+              placeholder="Например: пытаюсь отвлечься на работу, запрещаю себе думать об этом, звоню другу, иду гулять..."
             />
             {/* Helper Button */}
             <div className="absolute bottom-4 right-4 z-10">
@@ -107,10 +105,16 @@ export default function WithoutProblem() {
         {/* Tip Modal */}
         {showTip && (
           <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
-            <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Пример</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">
-              "Если бы я не тревожился эти два часа, я бы почитал книгу или спокойно погулял".
-            </p>
+            <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры действий</h3>
+            <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
+              <li>Пытаюсь отвлечься на работу или хобби</li>
+              <li>Запрещаю себе думать об этом</li>
+              <li>Звоню другу или близкому человеку</li>
+              <li>Иду на прогулку или в спортзал</li>
+              <li>Делаю дыхательные упражнения</li>
+              <li>Записываю мысли в дневник</li>
+              <li>Читаю мотивирующие материалы</li>
+            </ul>
             <button
               onClick={() => setShowTip(false)}
               className="w-full py-2.5 rounded-lg bg-slate-200 dark:bg-surface-dark-alt font-medium text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-border-dark transition-colors"
@@ -125,12 +129,12 @@ export default function WithoutProblem() {
       <div className="fixed bottom-0 left-0 right-0 z-30 p-4 bg-linear-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark dark:to-transparent pt-12">
         <div className="flex gap-4 max-w-lg mx-auto w-full">
           <button
-            onClick={handleFinish}
+            onClick={handleSave}
             disabled={isSaving}
-            className="h-12 w-full rounded-xl bg-primary text-white font-semibold text-base shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="h-12 w-full rounded-xl bg-primary text-white font-semibold text-base shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSaving ? 'Сохранение...' : 'Завершить анализ'}
-            {!isSaving && <span className="material-symbols-outlined text-[20px]">check_circle</span>}
+            {isSaving ? 'Сохранение...' : 'Сохранить запись'}
+            <span className="material-symbols-outlined text-[20px]">check</span>
           </button>
         </div>
         <div className="h-4" />

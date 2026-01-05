@@ -1,11 +1,12 @@
 export interface Entry {
   id: string;
-  situation: string;
+  location: string;
+  witnesses: string;
+  circumstances: string;
+  trigger: string;
   thoughts: string;
   bodyFeelings: string;
-  bodyZones: string[];
-  consequences: string;
-  withoutProblem: string;
+  actions: string;
   emoji: string;
   title: string;
   tags: string[];
@@ -14,12 +15,13 @@ export interface Entry {
 }
 
 export interface NewEntry {
-  situation: string;
+  location: string;
+  witnesses: string;
+  circumstances: string;
+  trigger: string;
   thoughts: string;
   bodyFeelings: string;
-  bodyZones: string[];
-  consequences: string;
-  withoutProblem: string;
+  actions: string;
 }
 
 export type Theme = 'light' | 'dark';
@@ -42,14 +44,20 @@ export interface AppContextType {
 
 export const EMOJIS = ['😰', '😨', '😔', '😌', '😤', '😢', '😊', '🤔'];
 
-export const BODY_ZONES = ['Голова', 'Грудь', 'Живот', 'Плечи', 'Руки', 'Ноги', 'Спина', 'Горло'];
+export const WITNESSES_OPTIONS = [
+  'Один/одна',
+  'С знакомыми',
+  'С посторонними',
+  'В толпе'
+];
 
 export const INITIAL_ENTRY: NewEntry = {
-  situation: '',
+  location: '',
+  witnesses: '',
+  circumstances: '',
+  trigger: '',
   thoughts: '',
   bodyFeelings: '',
-  bodyZones: [],
-  consequences: '',
-  withoutProblem: '',
+  actions: '',
 };
 

@@ -119,15 +119,15 @@ function generateId(): string {
 }
 
 /**
- * Generate a title from situation text
+ * Generate a title from location text
  */
-export function generateTitle(situation: string): string {
-  if (!situation) return 'Новая запись';
-  
+export function generateTitle(location: string): string {
+  if (!location) return 'Новая запись';
+
   // Take first 50 characters or up to first line break
-  const firstLine = situation.split('\n')[0];
+  const firstLine = location.split('\n')[0];
   if (firstLine.length <= 50) return firstLine;
-  
+
   return firstLine.substring(0, 47) + '...';
 }
 
@@ -136,29 +136,29 @@ export function generateTitle(situation: string): string {
  */
 export function getEmoji(text: string): string {
   const lowerText = text.toLowerCase();
-  
-  if (lowerText.includes('радост') || lowerText.includes('счастл') || lowerText.includes('удач')) {
+
+  if (lowerText.includes('справ') || lowerText.includes('контрол') || lowerText.includes('смог')) {
     return '😊';
   }
-  if (lowerText.includes('страх') || lowerText.includes('боюсь') || lowerText.includes('испуг')) {
+  if (lowerText.includes('страх') || lowerText.includes('боюсь') || lowerText.includes('пани')) {
     return '😨';
   }
-  if (lowerText.includes('тревог') || lowerText.includes('беспоко') || lowerText.includes('волну')) {
+  if (lowerText.includes('тревог') || lowerText.includes('беспоко') || lowerText.includes('волну') || lowerText.includes('игра') || lowerText.includes('сыгра')) {
     return '😰';
   }
-  if (lowerText.includes('грус') || lowerText.includes('печаль') || lowerText.includes('плач')) {
+  if (lowerText.includes('стыд') || lowerText.includes('вин') || lowerText.includes('сожале')) {
     return '😢';
   }
   if (lowerText.includes('злость') || lowerText.includes('раздраж') || lowerText.includes('бесит')) {
     return '😤';
   }
-  if (lowerText.includes('устал') || lowerText.includes('скуч') || lowerText.includes('апати')) {
+  if (lowerText.includes('устал') || lowerText.includes('скуч') || lowerText.includes('апати') || lowerText.includes('долг')) {
     return '😔';
   }
-  if (lowerText.includes('думаю') || lowerText.includes('размышл')) {
+  if (lowerText.includes('думаю') || lowerText.includes('размышл') || lowerText.includes('хоч')) {
     return '🤔';
   }
-  
+
   return '😌';
 }
 
@@ -168,40 +168,40 @@ export function getEmoji(text: string): string {
 export function extractTags(text: string): string[] {
   const tags: string[] = [];
   const lowerText = text.toLowerCase();
-  
+
   const tagMap: Record<string, string> = {
-    'работ': 'Работа',
-    'начальник': 'Работа',
-    'коллег': 'Работа',
-    'семь': 'Семья',
-    'родител': 'Семья',
-    'дети': 'Семья',
-    'муж': 'Семья',
-    'жен': 'Семья',
+    'казино': 'Казино',
+    'ставк': 'Ставки',
+    'игр': 'Желание играть',
+    'сыгра': 'Желание играть',
+    'выигр': 'Выигрыш',
+    'проигр': 'Проигрыш',
+    'долг': 'Долги',
+    'денег': 'Деньги',
+    'займ': 'Долги',
+    'стыд': 'Стыд',
+    'вин': 'Вина',
     'тревог': 'Тревога',
     'беспоко': 'Тревога',
     'страх': 'Страх',
-    'боюсь': 'Страх',
-    'грус': 'Грусть',
-    'печаль': 'Грусть',
-    'злость': 'Злость',
-    'раздраж': 'Злость',
-    'радост': 'Радость',
-    'счастл': 'Радость',
-    'успех': 'Успех',
-    'удач': 'Успех',
-    'здоров': 'Здоровье',
-    'болезн': 'Здоровье',
-    'друз': 'Друзья',
-    'личн': 'Личное',
+    'семь': 'Семья',
+    'жен': 'Семья',
+    'муж': 'Семья',
+    'одиноч': 'Одиночество',
+    'скуч': 'Скука',
+    'устал': 'Усталость',
+    'стресс': 'Стресс',
+    'работ': 'Работа',
+    'дом': 'Дома',
+    'улиц': 'На улице',
   };
-  
+
   for (const [keyword, tag] of Object.entries(tagMap)) {
     if (lowerText.includes(keyword) && !tags.includes(tag)) {
       tags.push(tag);
     }
   }
-  
+
   return tags.slice(0, 3); // Max 3 tags
 }
 

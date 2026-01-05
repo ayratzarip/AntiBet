@@ -22,7 +22,7 @@ export default function BodyFeelings() {
 
   const handleNext = () => {
     hapticFeedback('light');
-    navigate('/consequences');
+    navigate('/actions');
   };
 
   return (
@@ -36,7 +36,7 @@ export default function BodyFeelings() {
           <span className="material-symbols-outlined text-[24px] text-slate-900 dark:text-white">arrow_back</span>
         </button>
         <h2 className="text-lg font-bold leading-tight tracking-tight text-center text-slate-900 dark:text-white">
-          Шаг 3
+          Шаг 6
         </h2>
         <div className="size-10" />
       </header>
@@ -46,7 +46,6 @@ export default function BodyFeelings() {
         <div className="h-1.5 flex-1 rounded-full bg-primary/40 dark:bg-border-dark" />
         <div className="h-1.5 flex-1 rounded-full bg-primary/40 dark:bg-border-dark" />
         <div className="h-1.5 flex-1 rounded-full bg-primary shadow-[0_0_8px_rgba(19,127,236,0.5)]" />
-        <div className="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-surface-dark" />
         <div className="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-surface-dark" />
       </div>
 
@@ -61,7 +60,7 @@ export default function BodyFeelings() {
 
         {/* Description */}
         <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-          Оцените тонус мышц тела и лица, затем прислушайтесь к ощущениям внутри. Эмоции всегда отражаются в мышечном тонусе.
+          Прислушайтесь к своему телу. Какие ощущения возникают, когда вы думаете об игре? Напряжение, волнение, тревога?
         </p>
 
         {/* Text Input Area */}
@@ -74,7 +73,7 @@ export default function BodyFeelings() {
               value={currentEntry.bodyFeelings}
               onChange={(e) => updateCurrentEntry('bodyFeelings', e.target.value)}
               className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-              placeholder="Например: ком в горле, давящее чувство в груди, жар на лице, дрожь в руках..."
+              placeholder="Например: учащенное сердцебиение, напряжение в груди, ком в горле, дрожь, потливость..."
             />
             {/* Helper Button */}
             <div className="absolute bottom-4 right-4 z-10">
@@ -92,15 +91,16 @@ export default function BodyFeelings() {
         {/* Tip Modal */}
         {showTip && (
           <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
-            <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Как описать ощущения?</h3>
+            <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры телесных ощущений</h3>
             <p className="text-slate-600 dark:text-slate-300 mb-3 text-sm">
-              Обратите внимание на напряжение в плечах, челюсти, лбу. Сжаты ли кулаки? Как дышится? Эмоции живут в теле.
+              При желании играть часто возникают:
             </p>
             <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-              <li>Тонус (напряжение, расслабление)</li>
-              <li>Текстура (колючее, мягкое)</li>
-              <li>Движение (пульсация, вибрация)</li>
-              <li>Вес (тяжесть, легкость)</li>
+              <li>Учащенное сердцебиение, волнение</li>
+              <li>Напряжение в груди или животе</li>
+              <li>Дрожь в руках, потливость</li>
+              <li>Ощущение жара или холода</li>
+              <li>Сжатие в горле, трудно дышать</li>
             </ul>
             <button
               onClick={() => setShowTip(false)}

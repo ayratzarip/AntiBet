@@ -46,11 +46,11 @@ export default function Home() {
 
   const filteredEntries = useMemo(() => {
     if (!searchQuery.trim()) return entries;
-    
+
     const query = searchQuery.toLowerCase();
-    return entries.filter(entry => 
+    return entries.filter(entry =>
       entry.title.toLowerCase().includes(query) ||
-      entry.situation.toLowerCase().includes(query) ||
+      entry.location.toLowerCase().includes(query) ||
       entry.thoughts.toLowerCase().includes(query) ||
       entry.tags.some(tag => tag.toLowerCase().includes(query))
     );
@@ -99,21 +99,26 @@ export default function Home() {
     return `Запись #${index + 1} (${formatDate(entry.createdAt)})
 Название: ${entry.title || 'Без названия'}
 
-1. Ситуация (что происходит):
-${entry.situation || 'Не указано'}
+1. Место:
+${entry.location || 'Не указано'}
 
-2. Мысли (о чем думаю):
+2. Свидетели:
+${entry.witnesses || 'Не указано'}
+
+3. Обстоятельства:
+${entry.circumstances || 'Не указано'}
+
+4. Триггер:
+${entry.trigger || 'Не указано'}
+
+5. Мысли:
 ${entry.thoughts || 'Не указано'}
 
-3. Телесные ощущения:
+6. Телесные ощущения:
 ${entry.bodyFeelings || 'Не указано'}
-${entry.bodyZones.length > 0 ? `Области тела: ${entry.bodyZones.join(', ')}` : ''}
 
-4. Последствия (как это мешает жить):
-${entry.consequences || 'Не указано'}
-
-5. Без проблемы (что бы я делал):
-${entry.withoutProblem || 'Не указано'}
+7. Действия:
+${entry.actions || 'Не указано'}
 
 ${entry.tags.length > 0 ? `Теги: ${entry.tags.join(', ')}` : ''}
 ---
@@ -128,16 +133,14 @@ ${entry.tags.length > 0 ? `Теги: ${entry.tags.join(', ')}` : ''}
 
     hapticFeedback('light');
 
-    const prompt = `Ты - опытный психолог и аналитик, помогающий пользователю Telegram Mini App "Problem?". Пользователь ведет дневник самоанализа, чтобы разобраться в своих жизненных трудностях. Результаты твоего анализа могут быть использованы для самостоятельной работы или обсуждения с психотерапевтом.
+    const prompt = `Ты - опытный психотерапевт, специализирующийся на работе с зависимым поведением, помогающий пациенту с патологическим влечением к азартным играм. Пациент ведет дневник самонаблюдения в приложении "AntiBet" для отслеживания мыслей о игре и самокритики. Результаты анализа будут использованы на сеансах психотерапии.
 
 Твои задачи:
-1. Выяви закономерности и паттерны поведения пользователя на основе предоставленных записей.
-2. Составь каталог проблем пользователя. Считай проблемой то, что:
-   - Отнимает время (например, "тревожился два часа")
-   - Мешает совершать действия (например, "хотел пойти, но не пошел")
-3. Оцени, какая из проблем больше всего вредит качеству жизни пользователя.
-4. Предположи наличие иерархии или взаимозависимостей между проблемами (какая проблема может быть корневой).
-5. Предложи очередность решения проблем. Учитывай, что целесообразно решать проблемы по одной за раз, начиная с самой значимой или корневой.
+1. Выяви триггеры и паттерны, которые провоцируют мысли об азартных играх.
+2. Определи связь между обстоятельствами, эмоциональным состоянием и желанием играть.
+3. Проанализируй, какие защитные механизмы использует пациент (отвлечение, запрет себе думать и т.д.).
+4. Оцени динамику: становится ли пациенту легче справляться с влечением со временем.
+5. Предложи рекомендации для терапевта и пациента.
 
 Анализируй следующие записи из дневника:
 
@@ -170,7 +173,7 @@ ${entries.map((entry, index) => formatEntryForAI(entry, index)).join('\n')}
       <header className="flex-none pt-2 pb-2 px-4 z-20 bg-background-light dark:bg-background-dark">
         <div className="flex items-center justify-between h-14">
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Мои Записи
+            AntiBet
           </h1>
           <button 
             onClick={handleOpenInstructions}
@@ -255,7 +258,7 @@ ${entries.map((entry, index) => formatEntryForAI(entry, index)).join('\n')}
                         </div>
                         
                         <p className="text-sm text-slate-600 dark:text-gray-400 line-clamp-2 leading-relaxed mb-2">
-                          {entry.situation}
+                          {entry.location}
                         </p>
                         
                         {/* Tags */}

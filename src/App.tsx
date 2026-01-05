@@ -5,8 +5,7 @@ import {
   Situation,
   Thoughts,
   BodyFeelings,
-  Consequences,
-  WithoutProblem,
+  Actions,
   Instructions,
   EntryView,
 } from './pages';
@@ -14,7 +13,7 @@ import {
 function App() {
   return (
     <AppProvider>
-      <BrowserRouter basename="/problem">
+      <BrowserRouter basename="/AntiBet">
         <div className="min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display">
           <Routes>
             {/* 1. Мои записи - Домашняя страница */}
@@ -23,22 +22,19 @@ function App() {
             {/* 2. Просмотр/редактирование записи */}
             <Route path="/entry/:id" element={<EntryView />} />
 
-            {/* 3. Описание ситуации */}
+            {/* 3. Контекст: Место, Свидетели, Обстоятельства, Триггер */}
             <Route path="/situation" element={<Situation />} />
 
-            {/* 4. О чем думаю */}
+            {/* 4. Мысли об игре */}
             <Route path="/thoughts" element={<Thoughts />} />
 
-            {/* 5. Что ощущаю в теле */}
+            {/* 5. Телесные ощущения */}
             <Route path="/body-feelings" element={<BodyFeelings />} />
 
-            {/* 6. Как это мешает жить? */}
-            <Route path="/consequences" element={<Consequences />} />
+            {/* 6. Действия пользователя */}
+            <Route path="/actions" element={<Actions />} />
 
-            {/* 7. Что бы я делал без проблемы? */}
-            <Route path="/without-problem" element={<WithoutProblem />} />
-
-            {/* 8. Инструкции */}
+            {/* 7. Инструкции */}
             <Route path="/instructions" element={<Instructions />} />
           </Routes>
         </div>

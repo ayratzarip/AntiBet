@@ -149,7 +149,7 @@ export default function EntryView() {
           {/* Место */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Место
+              Местоположение
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
@@ -157,14 +157,14 @@ export default function EntryView() {
               value={currentEntry.location}
               onChange={(e) => updateCurrentEntry('location', e.target.value)}
               className="w-full min-h-[80px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Где появились мысли об игре..."
+              placeholder="Где Вы находились..."
             />
           </div>
 
           {/* Свидетели */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Свидетели
+              Ваше окружение
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
@@ -172,14 +172,14 @@ export default function EntryView() {
               value={currentEntry.witnesses}
               onChange={(e) => updateCurrentEntry('witnesses', e.target.value)}
               className="w-full min-h-[60px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Были ли вы одни или с кем-то..."
+              placeholder="Кто был рядом с Вами..."
             />
           </div>
 
           {/* Обстоятельства */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Обстоятельства
+              Обстановка и контекст
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
@@ -187,14 +187,14 @@ export default function EntryView() {
               value={currentEntry.circumstances}
               onChange={(e) => updateCurrentEntry('circumstances', e.target.value)}
               className="w-full min-h-[80px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Фон: устал, голоден, поругался..."
+              placeholder="Ваше состояние, события..."
             />
           </div>
 
           {/* Триггер */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Триггер
+              Пусковой механизм
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
@@ -202,14 +202,14 @@ export default function EntryView() {
               value={currentEntry.trigger}
               onChange={(e) => updateCurrentEntry('trigger', e.target.value)}
               className="w-full min-h-[80px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Что спровоцировало мысли об игре..."
+              placeholder="Что запустило мысли об игре..."
             />
           </div>
 
           {/* Мысли */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3 border-b border-slate-200 dark:border-border-dark">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Мысли
+              Ваши мысли
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4 border-b border-slate-100 dark:border-border-dark">
@@ -217,7 +217,7 @@ export default function EntryView() {
               value={currentEntry.thoughts}
               onChange={(e) => updateCurrentEntry('thoughts', e.target.value)}
               className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="О чем думаете: желание играть, стыд, самокритика..."
+              placeholder="О чем Вы подумали..."
             />
           </div>
 
@@ -232,14 +232,14 @@ export default function EntryView() {
               value={currentEntry.bodyFeelings}
               onChange={(e) => updateCurrentEntry('bodyFeelings', e.target.value)}
               className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Ощущения в теле, напряжение..."
+              placeholder="Напряжение, ритм сердца..."
             />
           </div>
 
           {/* Действия */}
           <div className="bg-slate-50 dark:bg-surface-dark-alt px-4 py-3">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-              Действия
+              Ваши действия
             </div>
           </div>
           <div className="bg-white dark:bg-surface-dark px-4 py-4">
@@ -247,7 +247,7 @@ export default function EntryView() {
               value={currentEntry.actions}
               onChange={(e) => updateCurrentEntry('actions', e.target.value)}
               className="w-full min-h-[100px] bg-transparent text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none border-none outline-none focus:ring-0 p-0"
-              placeholder="Что делаете: отвлекаетесь, запрещаете себе думать..."
+              placeholder="Ваша реакция на тягу..."
             />
           </div>
         </div>

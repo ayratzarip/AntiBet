@@ -99,16 +99,16 @@ export default function Home() {
     return `Запись #${index + 1} (${formatDate(entry.createdAt)})
 Название: ${entry.title || 'Без названия'}
 
-1. Место:
+1. Местоположение:
 ${entry.location || 'Не указано'}
 
-2. Свидетели:
+2. Окружение:
 ${entry.witnesses || 'Не указано'}
 
-3. Обстоятельства:
+3. Обстановка и контекст:
 ${entry.circumstances || 'Не указано'}
 
-4. Триггер:
+4. Пусковой механизм (Триггер):
 ${entry.trigger || 'Не указано'}
 
 5. Мысли:
@@ -208,10 +208,10 @@ ${entries.map((entry, index) => formatEntryForAI(entry, index)).join('\n')}
               <span className="material-symbols-outlined text-[40px] text-slate-400 dark:text-slate-500">edit_note</span>
             </div>
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-              Пока записей нет
+              Дневник пока пуст
             </h2>
             <p className="text-text-secondary max-w-xs">
-              Нажмите «Новая запись», чтобы начать вести дневник самоанализа
+              Начните вести наблюдения, чтобы лучше понимать своё состояние
             </p>
           </div>
         ) : filteredEntries.length === 0 ? (

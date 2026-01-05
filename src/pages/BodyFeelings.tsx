@@ -60,19 +60,19 @@ export default function BodyFeelings() {
         {/* Headline */}
         <div className="pt-2 pb-2">
           <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-            Что Вы ощущаете в теле?
+            Телесные ощущения
           </h1>
         </div>
 
         {/* Description */}
         <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-          Прислушайтесь к своему телу. Какие ощущения возникают, когда вы думаете об игре? Напряжение, волнение, тревога?
+          Тяга к игре часто отражается в теле. Попробуйте заметить напряжение, учащенное сердцебиение или другие сигналы организма.
         </p>
 
         {/* Text Input Area */}
         <div className="relative flex-1 min-h-[160px] flex flex-col">
           <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-            Описание
+            Ощущения
           </label>
           <div className="relative group w-full h-full flex-1">
             <textarea
@@ -88,7 +88,7 @@ export default function BodyFeelings() {
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
               >
                 <span className="material-symbols-outlined text-[18px]">help</span>
-                <span>Подсказка</span>
+                <span>Примеры</span>
               </button>
             </div>
           </div>

@@ -141,22 +141,22 @@ export default function Situation() {
           <>
             <div className="pt-2 pb-2">
               <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-                Где это произошло?
+                Местоположение
               </h1>
             </div>
             <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-              Опишите место, где у вас появились мысли об игре.
+              Где Вы находились в момент возникновения тяги? Окружающая обстановка может быть важным фактором.
             </p>
             <div className="relative flex-1 min-h-[160px] flex flex-col">
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                Место
+                Где Вы были?
               </label>
               <div className="relative group w-full h-full flex-1">
                 <textarea
                   value={currentEntry.location}
                   onChange={(e) => updateCurrentEntry('location', e.target.value)}
                   className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-                  placeholder="Например: дома на диване, в офисе, в машине, в торговом центре..."
+                  placeholder="Например: дома в гостиной, на работе, в машине, в торговом центре..."
                 />
                 <div className="absolute bottom-4 right-4 z-10">
                   <button
@@ -164,7 +164,7 @@ export default function Situation() {
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
                   >
                     <span className="material-symbols-outlined text-[18px]">help</span>
-                    <span>Подсказка</span>
+                    <span>Примеры</span>
                   </button>
                 </div>
               </div>
@@ -175,12 +175,12 @@ export default function Situation() {
               <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
                 <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры мест</h3>
                 <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
-                  <li>Дома (на диване, в ванной, на кухне)</li>
-                  <li>На работе / В офисе</li>
-                  <li>В пути (в машине, метро, автобусе)</li>
-                  <li>На улице / В парке</li>
+                  <li>Дома (на диване, на кухне, в ванной)</li>
+                  <li>На рабочем месте / В офисе</li>
+                  <li>В пути (в пробке, в метро, в такси)</li>
+                  <li>На прогулке / В парке</li>
                   <li>В магазине / ТЦ</li>
-                  <li>В гостях / В кафе / В баре</li>
+                  <li>В гостях или заведении</li>
                 </ul>
                 <button
                   onClick={() => setShowTip(false)}
@@ -198,11 +198,11 @@ export default function Situation() {
           <>
             <div className="pt-2 pb-2">
               <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-                Кто был рядом?
+                Ваше окружение
               </h1>
             </div>
             <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-4">
-              Были ли вы одни или с кем-то в тот момент?
+              Были ли Вы одни или в компании? Социальный контекст часто влияет на наше состояние.
             </p>
 
             <button
@@ -210,21 +210,20 @@ export default function Situation() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors mb-6 w-fit"
             >
               <span className="material-symbols-outlined text-[18px]">help</span>
-              <span>Подсказка</span>
+              <span>Почему это важно?</span>
             </button>
 
             {/* Tip Modal */}
             {showTip && (
               <div className="mb-6 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
-                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Окружение</h3>
+                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Влияние окружения</h3>
                 <p className="text-slate-600 dark:text-slate-300 mb-3 text-sm">
-                  Ваше окружение может влиять на желание играть.
+                  Разные ситуации могут по-разному провоцировать желание играть:
                 </p>
                 <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
-                  <li><strong>Один:</strong> часто триггером служит скука или одиночество.</li>
-                  <li><strong>С друзьями:</strong> разговоры об игре или социальное давление.</li>
-                  <li><strong>С семьей:</strong> конфликты или желание уединиться.</li>
-                  <li><strong>С незнакомыми:</strong> дискомфорт или стресс.</li>
+                  <li><strong>В одиночестве:</strong> часто триггером становится скука, грусть или чувство свободы ("никто не увидит").</li>
+                  <li><strong>С друзьями/знакомыми:</strong> социальное давление, разговоры о ставках, желание "быть как все".</li>
+                  <li><strong>В толпе:</strong> стресс или дискомфорт, от которых хочется "убежать" в игру.</li>
                 </ul>
                 <button
                   onClick={() => setShowTip(false)}
@@ -266,11 +265,11 @@ export default function Situation() {
           <>
             <div className="pt-2 pb-2">
               <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-                Контекст ситуации
+                Обстановка и контекст
               </h1>
             </div>
             <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-              В какой обстановке вы находились? Что делали или чувствовали до того, как сработал триггер?
+              Что предшествовало возникновению тяги? Опишите Ваш общий эмоциональный фон или события, которые могли повлиять.
             </p>
             <div className="relative flex-1 min-h-[160px] flex flex-col">
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
@@ -281,7 +280,7 @@ export default function Situation() {
                   value={currentEntry.circumstances}
                   onChange={(e) => updateCurrentEntry('circumstances', e.target.value)}
                   className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-                  placeholder="Например: устал после работы, голоден, поругался с женой, получил зарплату, скучно..."
+                  placeholder="Например: усталость после работы, ссора с близкими, чувство скуки, получение зарплаты..."
                 />
                 <div className="absolute bottom-4 right-4 z-10">
                   <button
@@ -289,7 +288,7 @@ export default function Situation() {
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
                   >
                     <span className="material-symbols-outlined text-[18px]">help</span>
-                    <span>Подсказка</span>
+                    <span>Примеры</span>
                   </button>
                 </div>
               </div>
@@ -298,11 +297,11 @@ export default function Situation() {
             {/* Tip Modal */}
             {showTip && (
               <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
-                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры обстоятельств</h3>
+                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Что может быть контекстом?</h3>
                 <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
-                  <li><strong>Физические:</strong> усталость, голод, алкоголь, недосып.</li>
-                  <li><strong>Эмоциональные:</strong> стресс, скука, одиночество, злость, тревога.</li>
-                  <li><strong>Событийные:</strong> ссора с близкими, проблемы на работе, получение денег, праздник.</li>
+                  <li><strong>Физическое состояние:</strong> усталость, голод, опьянение, недосып.</li>
+                  <li><strong>Эмоции:</strong> стресс, тревога, скука, одиночество, злость, радость (эйфория).</li>
+                  <li><strong>События:</strong> конфликт, проблемы на работе, получение денег, свободное время.</li>
                 </ul>
                 <button
                   onClick={() => setShowTip(false)}
@@ -320,11 +319,11 @@ export default function Situation() {
           <>
             <div className="pt-2 pb-2">
               <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-                Что спровоцировало?
+                Пусковой механизм
               </h1>
             </div>
             <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-              Что именно привело к появлению мыслей об игре? Это может быть событие, разговор, реклама, воспоминание.
+              Постарайтесь определить конкретный момент, событие или мысль, которые запустили желание играть.
             </p>
             <div className="relative flex-1 min-h-[160px] flex flex-col">
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
@@ -335,7 +334,7 @@ export default function Situation() {
                   value={currentEntry.trigger}
                   onChange={(e) => updateCurrentEntry('trigger', e.target.value)}
                   className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-                  placeholder="Например: увидел рекламу казино, друг рассказал о выигрыше, вспомнил прошлый выигрыш, увидел онлайн-казино..."
+                  placeholder="Например: увидел рекламу казино, пришло SMS от букмекера, друг рассказал о выигрыше, мысль 'мне повезет'..."
                 />
                 <div className="absolute bottom-4 right-4 z-10">
                   <button
@@ -343,7 +342,7 @@ export default function Situation() {
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
                   >
                     <span className="material-symbols-outlined text-[18px]">help</span>
-                    <span>Подсказка</span>
+                    <span>Примеры</span>
                   </button>
                 </div>
               </div>
@@ -352,12 +351,11 @@ export default function Situation() {
             {/* Tip Modal */}
             {showTip && (
               <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
-                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры триггеров</h3>
+                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Что может быть триггером?</h3>
                 <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
-                  <li><strong>Визуальные:</strong> реклама, вывеска БК, трансляция матча.</li>
-                  <li><strong>Слуховые:</strong> разговор про ставки, звук уведомления.</li>
-                  <li><strong>Финансовые:</strong> нехватка денег, долги или получение зарплаты.</li>
-                  <li><strong>Внутренние:</strong> воспоминание о выигрыше, мысль "а вдруг повезет", скука.</li>
+                  <li><strong>Внешние:</strong> реклама, вывески, SMS-уведомления, просмотр спорта, разговоры других людей.</li>
+                  <li><strong>Финансовые:</strong> необходимость отдать долг, получение денег, нехватка средств.</li>
+                  <li><strong>Внутренние:</strong> внезапное воспоминание о выигрыше, фантазия об успехе, скука, желание "быстрых денег".</li>
                 </ul>
                 <button
                   onClick={() => setShowTip(false)}

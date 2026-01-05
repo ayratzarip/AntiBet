@@ -62,26 +62,26 @@ export default function Thoughts() {
         {/* Headline */}
         <div className="pt-2 pb-2">
           <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-            Какие мысли появились?
+            Ваши мысли
           </h1>
         </div>
 
         {/* Description */}
         <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-          Опишите мысли об игре: желание сыграть, воспоминания о выигрышах или проигрышах, самокритику, стыд из-за долгов.
+          О чем Вы подумали в этот момент? Постарайтесь просто зафиксировать поток мыслей, не осуждая себя.
         </p>
 
         {/* Text Input Area */}
         <div className="relative flex-1 min-h-[160px] flex flex-col">
           <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-            Описание
+            Мысли
           </label>
           <div className="relative group w-full h-full flex-1">
             <textarea
               value={currentEntry.thoughts}
               onChange={(e) => updateCurrentEntry('thoughts', e.target.value.slice(0, maxChars))}
               className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-              placeholder="Например: хочу сыграть, вспомнил как выиграл, стыдно из-за долгов, ругаю себя за слабость..."
+              placeholder="Например: 'хочу только попробовать', 'надо срочно найти деньги', 'вспомнил чувство победы', 'ругаю себя за слабость'..."
             />
             {/* Helper Button */}
             <div className="absolute bottom-4 right-4 z-10">
@@ -90,7 +90,7 @@ export default function Thoughts() {
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
               >
                 <span className="material-symbols-outlined text-[18px]">help</span>
-                <span>Подсказка</span>
+                <span>Примеры</span>
               </button>
             </div>
           </div>
@@ -99,13 +99,13 @@ export default function Thoughts() {
         {/* Tip Modal */}
         {showTip && (
           <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
-            <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры мыслей</h3>
+            <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Частые мысли</h3>
             <p className="text-slate-600 dark:text-slate-300 mb-3 text-sm">
-              • "Хочу сыграть, может повезет"
-              <br/>• "Вспомнил, как выиграл в прошлый раз"
-              <br/>• "Стыдно, что снова думаю об этом"
-              <br/>• "Должен кучу денег, что делать"
-              <br/>• "Я слабак, не могу контролировать себя"
+              • "Только один раз, и всё"
+              <br/>• "Мне нужно отыграться"
+              <br/>• "Сегодня точно повезет"
+              <br/>• "Я неудачник, всё равно уже всё потерял"
+              <br/>• "Как отдать долги? Только игрой"
             </p>
             <button
               onClick={() => setShowTip(false)}

@@ -68,20 +68,22 @@ export default function Situation() {
   };
 
   const renderProgressIndicator = () => {
+    const totalStepsAll = 7;
     return (
       <div className="flex w-full flex-row items-center justify-center gap-2 py-4 px-4">
-        {[...Array(totalSteps)].map((_, index) => (
-          <div
-            key={index}
-            className={`h-1.5 flex-1 rounded-full transition-all ${
-              index < step
-                ? 'bg-primary shadow-[0_0_8px_rgba(19,127,236,0.5)]'
-                : index === step - 1
-                ? 'bg-primary shadow-[0_0_8px_rgba(19,127,236,0.5)]'
-                : 'bg-slate-200 dark:bg-surface-dark'
-            }`}
-          />
-        ))}
+        {[...Array(totalStepsAll)].map((_, index) => {
+          const currentStepGlobal = step; // Текущий шаг из 4 внутренних = шаг 1-4 из 7 общих
+          return (
+            <div
+              key={index}
+              className={`h-1.5 flex-1 rounded-full transition-all ${
+                index < currentStepGlobal
+                  ? 'bg-primary shadow-[0_0_8px_rgba(19,127,236,0.5)]'
+                  : 'bg-slate-200 dark:bg-surface-dark'
+              }`}
+            />
+          );
+        })}
       </div>
     );
   };
@@ -97,7 +99,7 @@ export default function Situation() {
           <span className="material-symbols-outlined text-[24px] text-slate-900 dark:text-white">arrow_back</span>
         </button>
         <h2 className="text-lg font-bold leading-tight tracking-tight text-center text-slate-900 dark:text-white">
-          Шаг {step} из {totalSteps}
+          Шаг {step} из 7
         </h2>
         <div className="size-10" />
       </header>

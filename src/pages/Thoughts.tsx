@@ -38,17 +38,23 @@ export default function Thoughts() {
           <span className="material-symbols-outlined text-[24px] text-slate-900 dark:text-white">arrow_back</span>
         </button>
         <h2 className="text-lg font-bold leading-tight tracking-tight text-center text-slate-900 dark:text-white">
-          Шаг 5
+          Шаг 5 из 7
         </h2>
         <div className="size-10" />
       </header>
 
       {/* Progress Indicator */}
       <div className="flex w-full flex-row items-center justify-center gap-2 py-4 px-4">
-        <div className="h-1.5 flex-1 rounded-full bg-primary/40 dark:bg-border-dark" />
-        <div className="h-1.5 flex-1 rounded-full bg-primary shadow-[0_0_8px_rgba(19,127,236,0.5)]" />
-        <div className="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-surface-dark" />
-        <div className="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-surface-dark" />
+        {[...Array(7)].map((_, index) => (
+          <div
+            key={index}
+            className={`h-1.5 flex-1 rounded-full transition-all ${
+              index < 5
+                ? 'bg-primary shadow-[0_0_8px_rgba(19,127,236,0.5)]'
+                : 'bg-slate-200 dark:bg-surface-dark'
+            }`}
+          />
+        ))}
       </div>
 
       {/* Main Content */}

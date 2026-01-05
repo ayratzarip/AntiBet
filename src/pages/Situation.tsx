@@ -8,7 +8,12 @@ export default function Situation() {
   const { currentEntry, updateCurrentEntry, resetCurrentEntry } = useApp();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [showTip, setShowTip] = useState(false);
   const totalSteps = 4;
+
+  useEffect(() => {
+    setShowTip(false);
+  }, [step]);
 
   useEffect(() => {
     const cleanup = setupBackButton(async () => {
@@ -124,13 +129,45 @@ export default function Situation() {
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                 Место
               </label>
-              <textarea
-                value={currentEntry.location}
-                onChange={(e) => updateCurrentEntry('location', e.target.value)}
-                className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-                placeholder="Например: дома на диване, в офисе, в машине, в торговом центре..."
-              />
+              <div className="relative group w-full h-full flex-1">
+                <textarea
+                  value={currentEntry.location}
+                  onChange={(e) => updateCurrentEntry('location', e.target.value)}
+                  className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
+                  placeholder="Например: дома на диване, в офисе, в машине, в торговом центре..."
+                />
+                <div className="absolute bottom-4 right-4 z-10">
+                  <button
+                    onClick={() => { setShowTip(!showTip); hapticFeedback('light'); }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">help</span>
+                    <span>Подсказка</span>
+                  </button>
+                </div>
+              </div>
             </div>
+
+            {/* Tip Modal */}
+            {showTip && (
+              <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
+                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры мест</h3>
+                <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
+                  <li>Дома (на диване, в ванной, на кухне)</li>
+                  <li>На работе / В офисе</li>
+                  <li>В пути (в машине, метро, автобусе)</li>
+                  <li>На улице / В парке</li>
+                  <li>В магазине / ТЦ</li>
+                  <li>В гостях / В кафе / В баре</li>
+                </ul>
+                <button
+                  onClick={() => setShowTip(false)}
+                  className="w-full py-2.5 rounded-lg bg-slate-200 dark:bg-surface-dark-alt font-medium text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-border-dark transition-colors"
+                >
+                  Понятно
+                </button>
+              </div>
+            )}
           </>
         )}
 
@@ -142,9 +179,40 @@ export default function Situation() {
                 Кто был рядом?
               </h1>
             </div>
-            <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
+            <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-4">
               Были ли вы одни или с кем-то в тот момент?
             </p>
+
+            <button
+              onClick={() => { setShowTip(!showTip); hapticFeedback('light'); }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors mb-6 w-fit"
+            >
+              <span className="material-symbols-outlined text-[18px]">help</span>
+              <span>Подсказка</span>
+            </button>
+
+            {/* Tip Modal */}
+            {showTip && (
+              <div className="mb-6 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
+                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Окружение</h3>
+                <p className="text-slate-600 dark:text-slate-300 mb-3 text-sm">
+                  Ваше окружение может влиять на желание играть.
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
+                  <li><strong>Один:</strong> часто триггером служит скука или одиночество.</li>
+                  <li><strong>С друзьями:</strong> разговоры об игре или социальное давление.</li>
+                  <li><strong>С семьей:</strong> конфликты или желание уединиться.</li>
+                  <li><strong>С незнакомыми:</strong> дискомфорт или стресс.</li>
+                </ul>
+                <button
+                  onClick={() => setShowTip(false)}
+                  className="w-full py-2.5 rounded-lg bg-slate-200 dark:bg-surface-dark-alt font-medium text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-border-dark transition-colors"
+                >
+                  Понятно
+                </button>
+              </div>
+            )}
+
             <div className="space-y-3">
               {WITNESSES_OPTIONS.map((option) => (
                 <button
@@ -176,23 +244,52 @@ export default function Situation() {
           <>
             <div className="pt-2 pb-2">
               <h1 className="text-[28px] font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-                Что происходило?
+                Контекст ситуации
               </h1>
             </div>
             <p className="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300 pb-6">
-              Опишите фон, на котором всё происходило: ваше состояние, события перед этим.
+              В какой обстановке вы находились? Что делали или чувствовали до того, как сработал триггер?
             </p>
             <div className="relative flex-1 min-h-[160px] flex flex-col">
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                 Обстоятельства
               </label>
-              <textarea
-                value={currentEntry.circumstances}
-                onChange={(e) => updateCurrentEntry('circumstances', e.target.value)}
-                className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-                placeholder="Например: устал после работы, голоден, поругался с женой, получил зарплату, скучно..."
-              />
+              <div className="relative group w-full h-full flex-1">
+                <textarea
+                  value={currentEntry.circumstances}
+                  onChange={(e) => updateCurrentEntry('circumstances', e.target.value)}
+                  className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
+                  placeholder="Например: устал после работы, голоден, поругался с женой, получил зарплату, скучно..."
+                />
+                <div className="absolute bottom-4 right-4 z-10">
+                  <button
+                    onClick={() => { setShowTip(!showTip); hapticFeedback('light'); }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">help</span>
+                    <span>Подсказка</span>
+                  </button>
+                </div>
+              </div>
             </div>
+
+            {/* Tip Modal */}
+            {showTip && (
+              <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
+                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры обстоятельств</h3>
+                <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
+                  <li><strong>Физические:</strong> усталость, голод, алкоголь, недосып.</li>
+                  <li><strong>Эмоциональные:</strong> стресс, скука, одиночество, злость, тревога.</li>
+                  <li><strong>Событийные:</strong> ссора с близкими, проблемы на работе, получение денег, праздник.</li>
+                </ul>
+                <button
+                  onClick={() => setShowTip(false)}
+                  className="w-full py-2.5 rounded-lg bg-slate-200 dark:bg-surface-dark-alt font-medium text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-border-dark transition-colors"
+                >
+                  Понятно
+                </button>
+              </div>
+            )}
           </>
         )}
 
@@ -211,13 +308,43 @@ export default function Situation() {
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                 Триггер
               </label>
-              <textarea
-                value={currentEntry.trigger}
-                onChange={(e) => updateCurrentEntry('trigger', e.target.value)}
-                className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
-                placeholder="Например: увидел рекламу казино, друг рассказал о выигрыше, вспомнил прошлый выигрыш, увидел онлайн-казино..."
-              />
+              <div className="relative group w-full h-full flex-1">
+                <textarea
+                  value={currentEntry.trigger}
+                  onChange={(e) => updateCurrentEntry('trigger', e.target.value)}
+                  className="w-full h-full min-h-[180px] p-4 rounded-xl bg-white dark:bg-surface-dark border-2 border-transparent focus:border-primary/50 focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-none transition-all shadow-sm"
+                  placeholder="Например: увидел рекламу казино, друг рассказал о выигрыше, вспомнил прошлый выигрыш, увидел онлайн-казино..."
+                />
+                <div className="absolute bottom-4 right-4 z-10">
+                  <button
+                    onClick={() => { setShowTip(!showTip); hapticFeedback('light'); }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">help</span>
+                    <span>Подсказка</span>
+                  </button>
+                </div>
+              </div>
             </div>
+
+            {/* Tip Modal */}
+            {showTip && (
+              <div className="mt-4 rounded-xl bg-white dark:bg-surface-dark p-4 shadow-lg border border-slate-200 dark:border-border-dark animate-fade-in">
+                <h3 className="text-lg font-bold mb-3 text-slate-900 dark:text-white">Примеры триггеров</h3>
+                <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 dark:text-slate-300 mb-3">
+                  <li><strong>Визуальные:</strong> реклама, вывеска БК, трансляция матча.</li>
+                  <li><strong>Слуховые:</strong> разговор про ставки, звук уведомления.</li>
+                  <li><strong>Финансовые:</strong> нехватка денег, долги или получение зарплаты.</li>
+                  <li><strong>Внутренние:</strong> воспоминание о выигрыше, мысль "а вдруг повезет", скука.</li>
+                </ul>
+                <button
+                  onClick={() => setShowTip(false)}
+                  className="w-full py-2.5 rounded-lg bg-slate-200 dark:bg-surface-dark-alt font-medium text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-border-dark transition-colors"
+                >
+                  Понятно
+                </button>
+              </div>
+            )}
           </>
         )}
       </main>
